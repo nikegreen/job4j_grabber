@@ -28,7 +28,8 @@ public class AlertRabbit {
                         .usingJobData(data)
                         .build();
                 SimpleScheduleBuilder times = simpleSchedule()
-                        .withIntervalInSeconds(getInterval(properties))
+                        .withIntervalInSeconds(
+                                Integer.parseInt(properties.getProperty("rabbit.interval")))
                         .repeatForever();
                 Trigger trigger = newTrigger()
                         .startNow()
@@ -38,8 +39,6 @@ public class AlertRabbit {
                 Thread.sleep(10000);
                 scheduler.shutdown();
             }
-        } catch (SchedulerException se) {
-            se.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -48,22 +47,17 @@ public class AlertRabbit {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (SchedulerException se) {
+            se.printStackTrace();
         }
     }
 
     public static Properties loadProperties(String fileName) throws IOException {
-        InputStream fis;
         Properties property = new Properties();
-        fis = AlertRabbit.class.getClassLoader().getResourceAsStream(fileName);
-        property.load(fis);
+        try (InputStream fis = AlertRabbit.class.getClassLoader().getResourceAsStream(fileName)) {
+            property.load(fis);
+        }
         return property;
-    }
-
-    public static int getInterval(Properties properties) {
-        int interval;
-        String intervalStr = properties.getProperty("rabbit.interval");
-        interval = Integer.parseInt(intervalStr);
-        return interval;
     }
 
     public static class Rabbit implements Job {
