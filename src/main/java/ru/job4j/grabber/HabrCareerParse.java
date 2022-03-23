@@ -16,6 +16,7 @@ public class HabrCareerParse {
             SOURCE_LINK);
 
     public static void main(String[] args) throws IOException {
+
         Connection connection = Jsoup.connect(PAGE_LINK);
         Document document = connection.get();
         Elements rows = document.select(".vacancy-card__inner");
