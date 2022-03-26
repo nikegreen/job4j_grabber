@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HabrCareerParse implements Parse {
+    private static final int MAX_PAGES = 5;
     private static final String SOURCE_LINK = "https://career.habr.com";
 
     private static final String PAGE_LINK = String.format("%s/vacancies/java_developer",
@@ -26,10 +27,22 @@ public class HabrCareerParse implements Parse {
     }
 
     @Override
-    public List<Post> list(String addr) throws IOException {
+    public List<Post> list(String addr) {
         List<Post> posts = new ArrayList<>();
+        for (int page = 1; page <= MAX_PAGES; page++) {
+            posts = parsePage(posts, addr + "?page=" + page);
+        }
+        return posts;
+    }
+
+    private List<Post> parsePage(List<Post> posts, String addr) {
         Connection connection = Jsoup.connect(addr);
-        Document document = connection.get();
+        Document document = null;
+        try {
+            document = connection.get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Elements rows = document.select(".vacancy-card__inner");
         rows.forEach(row -> {
             Element titleElement = row.select(".vacancy-card__title").first();
