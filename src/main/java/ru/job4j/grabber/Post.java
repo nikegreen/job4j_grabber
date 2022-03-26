@@ -59,6 +59,16 @@ public class Post {
     }
 
     @Override
+    public String toString() {
+        return "Post{id=" + id
+                + ", title='" + title
+                + "', link='" + link
+                + "', description='" + description
+                + "', created=" + created
+                + '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -67,24 +77,11 @@ public class Post {
             return false;
         }
         Post post = (Post) o;
-        return Objects.equals(getTitle(),
-                post.getTitle()) && Objects.equals(getLink(),
-                post.getLink()) && Objects.equals(getDescription(),
-                post.getDescription()) && getCreated().equals(post.getCreated());
+        return getId() == post.getId() && Objects.equals(getLink(), post.getLink());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getLink(), getDescription(), getCreated());
-    }
-
-    @Override
-    public String toString() {
-        return "Post{id=" + id
-                + ", title='" + title
-                + "', link='" + link
-                + "', description='" + description
-                + "', created=" + created
-                + '}';
+        return Objects.hash(getId(), getLink());
     }
 }
