@@ -5,6 +5,7 @@ create table if not exists post (
     link varchar unique not null,
     created timestamp
 );
+truncate table post;
 
 create table if not exists rabbit (
     id serial primary key,
