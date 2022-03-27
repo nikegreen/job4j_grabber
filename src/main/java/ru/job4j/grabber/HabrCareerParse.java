@@ -44,25 +44,24 @@ public class HabrCareerParse implements Parse {
             e.printStackTrace();
         }
         Elements rows = document.select(".vacancy-card__inner");
-        rows.forEach(row -> {
-            Element titleElement = row.select(".vacancy-card__title").first();
-            Element linkElement = titleElement.child(0);
-            String vacancyName = titleElement.text();
-            String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
-            Element dateElement = row.select(".vacancy-card__date").first().child(0);
-            System.out.printf("%s %s %s%n",
-                    dateTimeParser.parse(dateElement.attr("datetime")),
-                    vacancyName,
-                    link);
-            String text = null;
-            try {
-                text = retrieveDescription(link);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("< " + text + " />");
-        });
+        rows.forEach(row -> posts.add(parsePost(row)));
         return posts;
+    }
+
+    public Post parsePost(Element element) {
+        Element titleElement = element.select(".vacancy-card__title").first();
+        Element linkElement = titleElement.child(0);
+        String vacancyName = titleElement.text();
+        String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
+        Element dateElement = element.select(".vacancy-card__date").first().child(0);
+        LocalDateTime dt = dateTimeParser.parse(dateElement.attr("datetime"));
+        String text = null;
+        try {
+            text = retrieveDescription(link);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Post(vacancyName, link, text, dt);
     }
 
     public String retrieveDescription(String link) throws IOException {
@@ -73,7 +72,7 @@ public class HabrCareerParse implements Parse {
         return descriptionElement.text();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         HabrCareerParse habrCareerParse = new HabrCareerParse(new HarbCareerDateTimeParser());
         habrCareerParse.list(PAGE_LINK);
     }
