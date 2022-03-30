@@ -19,7 +19,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 public class Grabber implements Grab {
     private static String sourceLink;
-    private static int intervalSeconds;
 
     private final Properties cfg = new Properties();
 
@@ -33,12 +32,14 @@ public class Grabber implements Grab {
         return scheduler;
     }
 
-    public void cfg() throws IOException {
+    public void cfg() {
         try (InputStream in = Grabber.class
                 .getClassLoader()
                 .getResourceAsStream("app.properties")) {
             cfg.load(in);
             sourceLink = cfg.getProperty("grabber.link");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
