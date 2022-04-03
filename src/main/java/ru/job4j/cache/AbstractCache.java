@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractCache<K, V> {
-
-    protected final Map<K, SoftReference<V>> cache = new HashMap<>();
+    private Map<K, SoftReference<V>> cache = new HashMap<>();
 
     public void put(K key, V value) {
-        cache.put(key, new SoftReference<V>(value));
+        cache.put(key, new SoftReference<>(value));
     }
 
     public V get(K key) {
@@ -26,4 +25,12 @@ public abstract class AbstractCache<K, V> {
     }
 
     protected abstract V load(K key);
+
+    public Map<K, SoftReference<V>> getCache() {
+        return cache;
+    }
+
+    public void setCache(Map<K, SoftReference<V>> cache) {
+        this.cache = cache;
+    }
 }
