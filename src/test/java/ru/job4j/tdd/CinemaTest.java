@@ -40,9 +40,10 @@ public class CinemaTest {
     @Test
     public void whenFind() {
         Cinema cinema = new Cinema3D();
-        cinema.add(new Session3D());
-        List<Session> sessions = cinema.find(session -> true);
-        assertThat(sessions, is(Arrays.asList(new Session3D())));
+        Session session = new Session3D();
+        cinema.add(session);
+        List<Session> sessions = cinema.find(sessionTemp -> true);
+        assertThat(sessions, is(Arrays.asList(session)));
     }
 
     /**
