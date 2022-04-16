@@ -1,13 +1,12 @@
 package ru.job4j.tdd;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Cinema3D implements Cinema {
     private final List<Session> sessions = new ArrayList<>();
+    private final List<Ticket> tickets = new ArrayList<>();
 
     @Override
     public List<Session> find(Predicate<Session> filter) {
@@ -16,7 +15,14 @@ public class Cinema3D implements Cinema {
 
     @Override
     public Ticket buy(Account account, int row, int column, Calendar date) {
-        return new Ticket3D();
+        Ticket ticket = new Ticket3D(account, row, column, date);
+        for (Ticket value : tickets) {
+            if (value.equals(ticket)) {
+                return null;
+            }
+        }
+        tickets.add(ticket);
+        return ticket;
     }
 
     @Override
