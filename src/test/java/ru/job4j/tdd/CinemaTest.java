@@ -11,21 +11,47 @@ import java.util.Calendar;
 import java.util.List;
 
 public class CinemaTest {
-
     @Test
     public void whenBuy() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
-        date.set(2020, 10, 10, 23, 00);
+        date.set(2023, 10, 10, 23, 00);
         Ticket ticket = cinema.buy(account, 1, 1, date);
         assertThat(ticket, is(new Ticket3D(account, 1, 1, date)));
     }
 
     /**
+     * 1) невалидное место
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void whenBuyNoValidSeat() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2020, 10, 10, 23, 00);
+        Ticket ticket = cinema.buy(account, 1, 100, date);
+        assertThat(ticket, is(new Ticket3D(account, 1, 1, date)));
+    }
+
+    /**
+     * 2)невалидная дата
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void whenBuyNoValidDate() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(1020, 10, 10, 23, 00);
+        Ticket ticket = cinema.buy(account, 1, 100, date);
+        assertThat(ticket, is(new Ticket3D(account, 1, 1, date)));
+    }
+
+    /**
+     * 3) покупка билета, на уже выкупленное место.
      * пробуем купить билет 2-жды
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void whenBuy2Equal() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
