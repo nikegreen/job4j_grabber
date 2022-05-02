@@ -6,21 +6,21 @@ public class ReportEngine implements Report {
 
     private final Store store;
 
-    public ReportEngine(Store store) {
+    private final ReportBuilder reportBuilder;
+
+    public ReportEngine(Store store, ReportBuilder reportBuilder) {
         this.store = store;
+        this.reportBuilder = reportBuilder;
     }
 
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary;").append(System.lineSeparator());
+        text.append(reportBuilder.getHeader());
         for (Employee employee : store.findBy(filter)) {
-            text.append(employee.getName()).append(";")
-                    .append(employee.getHired()).append(";")
-                    .append(employee.getFired()).append(";")
-                    .append(employee.getSalary()).append(";")
-                    .append(System.lineSeparator());
+            text.append(reportBuilder.getBody(employee));
         }
+        text.append(reportBuilder.getFooter());
         return text.toString();
     }
 }
