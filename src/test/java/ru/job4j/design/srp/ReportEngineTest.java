@@ -1,13 +1,14 @@
 package ru.job4j.design.srp;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import java.util.Calendar;
 import java.util.Comparator;
-import java.util.List;
 
 public class ReportEngineTest {
+
     @Test
     public void whenOldGenerated() {
         MemStore store = new MemStore();
@@ -16,15 +17,14 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new ReportEngine(store, reportBuilder, null);
-        StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary;")
-                .append(System.lineSeparator())
-                .append(worker.getName()).append(";")
-                .append(worker.getHired()).append(";")
-                .append(worker.getFired()).append(";")
-                .append(worker.getSalary()).append(";")
-                .append(System.lineSeparator());
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        String expect = "Name; Hired; Fired; Salary;" +
+                System.lineSeparator() +
+                worker.getName() + ";" +
+                worker.getHired() + ";" +
+                worker.getFired() + ";" +
+                worker.getSalary() + ";" +
+                System.lineSeparator();
+        assertEquals(engine.generate(em -> true), expect);
     }
 
     /**
@@ -38,33 +38,32 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new ReportEngine(store, reportBuilder, null);
-        StringBuilder expect = new StringBuilder();
-        expect.append("<!DOCTYPE html>").append(System.lineSeparator())
-                .append("<html>").append(System.lineSeparator())
-                .append("<header>").append(System.lineSeparator())
-                .append("</header>").append(System.lineSeparator())
-                .append("<body>").append(System.lineSeparator())
-                .append("<table border=\"1\">").append(System.lineSeparator())
-                .append("<tr>").append(System.lineSeparator())
-                .append("<th>Name</th>").append(System.lineSeparator())
-                .append("<th>Hired</th>").append(System.lineSeparator())
-                .append("<th>Fired</th>").append(System.lineSeparator())
-                .append("<th>Salary</th>").append(System.lineSeparator())
-                .append("</tr>").append(System.lineSeparator())
-                .append("<tr>").append(System.lineSeparator())
-                .append("<td>").append(worker.getName()).append("</td>")
-                .append(System.lineSeparator())
-                .append("<td>").append(worker.getHired()).append("</td>")
-                .append(System.lineSeparator())
-                .append("<td>").append(worker.getFired()).append("</td>")
-                .append(System.lineSeparator())
-                .append("<td>").append(worker.getSalary()).append("</td>")
-                .append(System.lineSeparator())
-                .append("</tr>").append(System.lineSeparator())
-                .append("</table>").append(System.lineSeparator())
-                .append("</body>").append(System.lineSeparator())
-                .append("</html>").append(System.lineSeparator());
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        String expect = "<!DOCTYPE html>" + System.lineSeparator() +
+                "<html>" + System.lineSeparator() +
+                "<header>" + System.lineSeparator() +
+                "</header>" + System.lineSeparator() +
+                "<body>" + System.lineSeparator() +
+                "<table border=\"1\">" + System.lineSeparator() +
+                "<tr>" + System.lineSeparator() +
+                "<th>Name</th>" + System.lineSeparator() +
+                "<th>Hired</th>" + System.lineSeparator() +
+                "<th>Fired</th>" + System.lineSeparator() +
+                "<th>Salary</th>" + System.lineSeparator() +
+                "</tr>" + System.lineSeparator() +
+                "<tr>" + System.lineSeparator() +
+                "<td>" + worker.getName() + "</td>" +
+                System.lineSeparator() +
+                "<td>" + worker.getHired() + "</td>" +
+                System.lineSeparator() +
+                "<td>" + worker.getFired() + "</td>" +
+                System.lineSeparator() +
+                "<td>" + worker.getSalary() + "</td>" +
+                System.lineSeparator() +
+                "</tr>" + System.lineSeparator() +
+                "</table>" + System.lineSeparator() +
+                "</body>" + System.lineSeparator() +
+                "</html>" + System.lineSeparator();
+        assertEquals(engine.generate(em -> true), expect);
     }
 
     /**
@@ -85,17 +84,16 @@ public class ReportEngineTest {
                         .thenComparing(Employee::getName)
                         .reversed()
         );
-        StringBuilder expect = new StringBuilder()
-                .append("Name; Salary;")
-                .append(System.lineSeparator())
-                .append(worker2.getName()).append(";")
-                .append(worker2.getSalary()).append(";")
-                .append(System.lineSeparator())
-                .append(worker.getName()).append(";")
-                .append(worker.getSalary()).append(";")
-                .append(System.lineSeparator());
+        String expect = "Name; Salary;" +
+                System.lineSeparator() +
+                worker2.getName() + ";" +
+                worker2.getSalary() + ";" +
+                System.lineSeparator() +
+                worker.getName() + ";" +
+                worker.getSalary() + ";" +
+                System.lineSeparator();
         String out = engine.generate(em -> true);
-        assertThat(out , is(expect.toString()));
+        assertEquals(out, expect);
     }
 
     /**
@@ -115,20 +113,19 @@ public class ReportEngineTest {
                 reportBuilder,
                 null
         );
-        StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary(KZT);")
-                .append(System.lineSeparator())
-                .append(worker.getName()).append(";")
-                .append(worker.getHired()).append(";")
-                .append(worker.getFired()).append(";")
-                .append(worker.getSalary()*k).append(";")
-                .append(System.lineSeparator())
-                .append(worker2.getName()).append(";")
-                .append(worker2.getHired()).append(";")
-                .append(worker2.getFired()).append(";")
-                .append(worker2.getSalary() * k).append(";")
-                .append(System.lineSeparator());
+        String expect = "Name; Hired; Fired; Salary(KZT);" +
+                System.lineSeparator() +
+                worker.getName() + ";" +
+                worker.getHired() + ";" +
+                worker.getFired() + ";" +
+                worker.getSalary() * k + ";" +
+                System.lineSeparator() +
+                worker2.getName() + ";" +
+                worker2.getHired() + ";" +
+                worker2.getFired() + ";" +
+                worker2.getSalary() * k + ";" +
+                System.lineSeparator();
         String out = engine.generate(em -> true);
-        assertThat(out , is(expect.toString()));
+        assertEquals(out , expect);
     }
 }
