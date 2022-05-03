@@ -4,7 +4,8 @@ public class ReportBuilderHtml implements ReportBuilder {
     @Override
     public String getHeader() {
         StringBuilder text = new StringBuilder();
-        text.append("<html>").append(System.lineSeparator())
+        text.append("<!DOCTYPE html>").append(System.lineSeparator())
+            .append("<html>").append(System.lineSeparator())
             .append("<header>").append(System.lineSeparator())
             .append("</header>").append(System.lineSeparator())
             .append("<body>").append(System.lineSeparator())
