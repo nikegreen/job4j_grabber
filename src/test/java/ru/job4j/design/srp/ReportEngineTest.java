@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ReportEngineTest {
-
     @Test
     public void whenOldGenerated() {
         MemStore store = new MemStore();
