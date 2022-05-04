@@ -7,14 +7,14 @@ import static org.junit.Assert.*;
 public class ParkingTest {
 
     @Test
-    public void Car1Parking() {
+    public void car1Parking() {
         Parking parking = new Parking(5);
         Car car1 = new Car();
         Car car2 = new Car();
         Car car3 = new Car();
         Car car4 = new Car();
         Car car5 = new Car();
-        Car car6= new Car();
+        Car car6 = new Car();
         assertTrue(parking.put(car1));
         assertTrue(parking.put(car2));
         assertTrue(parking.put(car3));
@@ -24,9 +24,8 @@ public class ParkingTest {
         assertFalse(parking.put(car6));
     }
 
-
     @Test
-    public void Truck1Parking() {
+    public void truck1Parking() {
         Parking parking = new Parking(5);
         Truck truck1 = new Truck(2);
         Truck truck2 = new Truck(3);
