@@ -1,11 +1,11 @@
 package ru.job4j.design.lsp;
 
 import org.junit.Test;
+import ru.job4j.design.lsp.product.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.*;

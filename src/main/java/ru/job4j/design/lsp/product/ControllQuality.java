@@ -1,12 +1,6 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.product;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class ControllQuality {
     private final List<FoodStorage> storages;

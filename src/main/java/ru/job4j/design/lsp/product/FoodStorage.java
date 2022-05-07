@@ -1,9 +1,10 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.product;
+
+import ru.job4j.design.lsp.product.Food;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public abstract class FoodStorage {

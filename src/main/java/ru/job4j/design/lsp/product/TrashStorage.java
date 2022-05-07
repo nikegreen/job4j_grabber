@@ -1,7 +1,6 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.product;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import ru.job4j.design.lsp.product.FoodStorage;
 
 public class TrashStorage extends FoodStorage {
     public TrashStorage() {

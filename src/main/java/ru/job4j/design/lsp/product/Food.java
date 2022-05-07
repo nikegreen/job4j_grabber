@@ -1,8 +1,7 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.product;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Currency;
 import java.util.Objects;
 
 public class Food {
