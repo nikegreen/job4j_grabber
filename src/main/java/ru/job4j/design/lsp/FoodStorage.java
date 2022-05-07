@@ -4,22 +4,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
-public class FoodStorage {
+public abstract class FoodStorage {
     private final List<Food> storage = new ArrayList<>();
-    private final Function<Food, Food> function;
+    private final Predicate<Food> accept;
 
-    public FoodStorage(Function<Food, Food> functionAccept) {
-        this.function = functionAccept;
+    protected FoodStorage(Predicate<Food> accept) {
+        this.accept = accept;
     }
 
     public boolean add(Food food) {
        boolean res = false;
-       if (!storage.contains(food)) {
-           food = function.apply(food);
-           if (food != null) {
+       if (!storage.contains(food) && accept.test(food)) {
                res = storage.add(food);
-           }
        }
        return res;
     }
@@ -29,7 +27,7 @@ public class FoodStorage {
     }
 
     public List<Food> getStorage() {
-        return storage;
+        return List.copyOf(storage);
     }
 
     public static double expiredInPercent(Food food) {

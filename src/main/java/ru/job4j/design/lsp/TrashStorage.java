@@ -5,6 +5,6 @@ import java.math.RoundingMode;
 
 public class TrashStorage extends FoodStorage {
     public TrashStorage() {
-        super(food -> (expiredInPercent(food) >= 100) ? food : null);
+        super(food -> expiredInPercent(food) >= 100);
     }
 }
