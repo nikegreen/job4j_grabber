@@ -49,7 +49,6 @@ public class SimpleMenuPrinterTest {
                 ),
                 menu.select("Покормить собаку").orElse(null)
         );
-        //menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
         MenuPrinter menuPrinter = new SimpleMenuPrinter();
         menuPrinter.print(menu);
         assertEquals("Сходить в магазин 1.\n"
