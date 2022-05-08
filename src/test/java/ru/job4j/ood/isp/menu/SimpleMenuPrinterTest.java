@@ -11,6 +11,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class SimpleMenuPrinterTest {
+
     public static final ActionDelegate STUB_ACTION = System.out::println;
 
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
