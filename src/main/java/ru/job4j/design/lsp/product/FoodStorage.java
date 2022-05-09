@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public abstract class FoodStorage {
+    static private Supplier<Calendar> calendarNow;
     private final List<Food> storage = new ArrayList<>();
     private final Predicate<Food> accept;
 
@@ -31,8 +33,16 @@ public abstract class FoodStorage {
         return List.copyOf(storage);
     }
 
+    static {
+        setCalendarNow(Calendar::getInstance);
+    }
+
+    public static void setCalendarNow(Supplier<Calendar> now) {
+        calendarNow = now;
+    }
+
     public static double expiredInPercent(Food food) {
-        Calendar now = Calendar.getInstance();
+        Calendar now = calendarNow.get();
         return 100.0 * (now.getTimeInMillis()
                 - food.getCreateDate().getTimeInMillis())
                 / (food.getExpiryDate().getTimeInMillis()
