@@ -133,7 +133,6 @@ public class ReportEngineTest {
      */
     @Test
     public void whenXmlGenerated() {
-        final double k = 6.37;
         MemStore store = new MemStore();
         ReportBuilder reportBuilder = new ReportBuilderXml();
         Calendar now = new GregorianCalendar(2021, Calendar.APRIL, 1);
@@ -169,7 +168,6 @@ public class ReportEngineTest {
      */
     @Test
     public void whenJsonGenerated() {
-        final double k = 6.37;
         MemStore store = new MemStore();
         ReportBuilder reportBuilder = new ReportBuilderJson();
         Calendar now = new GregorianCalendar(2021, Calendar.APRIL, 1);
@@ -184,12 +182,16 @@ public class ReportEngineTest {
 
         String expect = "["
         + "{\"name\":\"Ivan\","
-        + "\"hired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
-        + "\"fired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"hired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,"
+        + "\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"fired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,"
+        + "\"hourOfDay\":0,\"minute\":0,\"second\":0},"
         + "\"salary\":100.0},"
         + "{\"name\":\"Petr\","
-        + "\"hired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
-        + "\"fired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"hired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,"
+        + "\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"fired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,"
+        + "\"hourOfDay\":0,\"minute\":0,\"second\":0},"
         + "\"salary\":110.0}]";
         String out = engine.generate(em -> true);
         assertEquals(out, expect);
