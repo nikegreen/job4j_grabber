@@ -50,7 +50,6 @@ public class ReportBuilderXml implements  ReportBuilder {
             }
         } catch (JAXBException e) {
             e.printStackTrace();
-            //throw new RuntimeException(e);
         }
         return xml;
     }
