@@ -1,13 +1,15 @@
 package ru.job4j.design.srp;
 
-public class ReportBuilderTxt implements ReportBuilder {
+import java.util.List;
+
+public class ReportBuilderTxt extends BaseReportBuilder {
     @Override
     public String getHeader() {
         return "Name; Hired; Fired; Salary;" + System.lineSeparator();
     }
 
     @Override
-    public String getBody(Employee employee) {
+    public String getBodyEmployee(Employee employee) {
         StringBuilder text = new StringBuilder();
         text.append(employee.getName()).append(";")
                 .append(employee.getHired()).append(";")

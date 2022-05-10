@@ -1,6 +1,8 @@
 package ru.job4j.design.srp;
 
-public class ReportBuilderHtml implements ReportBuilder {
+import java.util.List;
+
+public class ReportBuilderHtml extends BaseReportBuilder {
     @Override
     public String getHeader() {
         StringBuilder text = new StringBuilder();
@@ -20,7 +22,7 @@ public class ReportBuilderHtml implements ReportBuilder {
     }
 
     @Override
-    public String getBody(Employee employee) {
+    public String getBodyEmployee(Employee employee) {
         StringBuilder text = new StringBuilder();
         text.append("<tr>").append(System.lineSeparator())
             .append("<td>").append(employee.getName()).append("</td>")

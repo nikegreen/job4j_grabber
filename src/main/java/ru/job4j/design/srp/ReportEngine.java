@@ -20,15 +20,13 @@ public class ReportEngine implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        StringBuilder text = new StringBuilder();
-        text.append(reportBuilder.getHeader());
         List<Employee> list = store.findBy(filter);
         if (comparator != null) {
             list.sort(comparator);
         }
-        for (Employee employee : list) {
-            text.append(reportBuilder.getBody(employee));
-        }
+        StringBuilder text = new StringBuilder();
+        text.append(reportBuilder.getHeader());
+        text.append(reportBuilder.getBody(list));
         text.append(reportBuilder.getFooter());
         return text.toString();
     }

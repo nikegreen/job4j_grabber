@@ -1,13 +1,15 @@
 package ru.job4j.design.srp;
 
-public class ReportBuilderAccountingTxt implements ReportBuilder {
+import java.util.List;
+
+public class ReportBuilderAccountingTxt extends BaseReportBuilder {
     @Override
     public String getHeader() {
         return "Name; Hired; Fired; Salary(KZT);" + System.lineSeparator();
     }
 
     @Override
-    public String getBody(Employee employee) {
+    public String getBodyEmployee(Employee employee) {
         final double k = 6.37;
         StringBuilder text = new StringBuilder();
         text.append(employee.getName()).append(";")

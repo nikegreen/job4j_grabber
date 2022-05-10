@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 
 public class ReportEngineTest {
 
@@ -123,6 +124,73 @@ public class ReportEngineTest {
                 + worker2.getFired() + ";"
                 + worker2.getSalary() * k + ";"
                 + System.lineSeparator();
+        String out = engine.generate(em -> true);
+        assertEquals(out, expect);
+    }
+
+    /**
+     * for XML version
+     */
+    @Test
+    public void whenXmlGenerated() {
+        final double k = 6.37;
+        MemStore store = new MemStore();
+        ReportBuilder reportBuilder = new ReportBuilderXml();
+        Calendar now = new GregorianCalendar(2021, Calendar.APRIL, 1);
+        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Petr", now, now, 110);
+        store.add(worker);
+        store.add(worker2);
+        Report engine = new ReportEngine(store,
+                reportBuilder,
+                null
+        );
+        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<employees>\n"
+                + "    <employees>\n"
+                + "        <name>Ivan</name>\n"
+                + "        <hired>2021-04-01T00:00:00+05:00</hired>\n"
+                + "        <fired>2021-04-01T00:00:00+05:00</fired>\n"
+                + "        <salary>100.0</salary>\n"
+                + "    </employees>\n"
+                + "    <employees>\n"
+                + "        <name>Petr</name>\n"
+                + "        <hired>2021-04-01T00:00:00+05:00</hired>\n"
+                + "        <fired>2021-04-01T00:00:00+05:00</fired>\n"
+                + "        <salary>110.0</salary>\n"
+                + "    </employees>\n"
+                + "</employees>\n";
+        String out = engine.generate(em -> true);
+        assertEquals(out, expect);
+    }
+
+    /**
+     * for JSON version
+     */
+    @Test
+    public void whenJsonGenerated() {
+        final double k = 6.37;
+        MemStore store = new MemStore();
+        ReportBuilder reportBuilder = new ReportBuilderJson();
+        Calendar now = new GregorianCalendar(2021, Calendar.APRIL, 1);
+        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Petr", now, now, 110);
+        store.add(worker);
+        store.add(worker2);
+        Report engine = new ReportEngine(store,
+                reportBuilder,
+                null
+        );
+
+        String expect = "["
+        + "{\"name\":\"Ivan\","
+        + "\"hired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"fired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"salary\":100.0},"
+        + "{\"name\":\"Petr\","
+        + "\"hired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"fired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+        + "\"salary\":110.0}]";
         String out = engine.generate(em -> true);
         assertEquals(out, expect);
     }
