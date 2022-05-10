@@ -31,9 +31,7 @@ public class ControllQuality {
         ArrayList<Food> storage = new ArrayList<>();
         for (FoodStorage foodStorage: storages) {
             storage.addAll(foodStorage.getStorage());
-            for (Food food:foodStorage.getStorage()) {
-                foodStorage.remove(food);
-            }
+            foodStorage.clear();
         }
         for (Food food: storage) {
             add(food);

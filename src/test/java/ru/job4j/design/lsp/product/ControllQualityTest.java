@@ -179,5 +179,4 @@ public class ControllQualityTest {
         assertEquals(controllQuality.getAll().get(1).getStorage(), List.of(shop2Food));
         assertEquals(controllQuality.getAll().get(2).getStorage(), List.of(trashFood));
     }
-
 }

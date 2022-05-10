@@ -25,8 +25,8 @@ public abstract class FoodStorage {
        return res;
     }
 
-    public boolean remove(Food food) {
-        return storage.remove(food);
+    public void clear() {
+        storage.clear();
     }
 
     public List<Food> getStorage() {
