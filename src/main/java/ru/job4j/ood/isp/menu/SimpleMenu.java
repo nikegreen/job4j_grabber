@@ -9,38 +9,22 @@ public class SimpleMenu implements Menu {
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         boolean res = false;
-        if (parentName == Menu.ROOT) {
-            res = rootElements.add(new SimpleMenuItem(childName, actionDelegate));
-        } else {
-            Optional<ItemInfo> info = findItem(parentName);
-            if (info.isPresent()) {
-                res = info.get()
-                        .menuItem
-                        .getChildren()
-                        .add(new SimpleMenuItem(childName, actionDelegate));
+        if (findItem(childName).isEmpty()) {
+            if (parentName == Menu.ROOT) {
+                res = rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+            } else {
+                Optional<ItemInfo> info = findItem(parentName);
+                if (info.isPresent()) {
+                    res = info.get()
+                            .menuItem
+                            .getChildren()
+                            .add(new SimpleMenuItem(childName, actionDelegate));
+                }
             }
         }
         return res;
     }
 
-    /*
-    private boolean add(MenuItem item,
-                        String parentName,
-                        String childName,
-                        ActionDelegate actionDelegate) {
-        if (parentName.equals(item.getName())) {
-            return item.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
-        }
-        boolean res = false;
-        for (MenuItem item1: item.getChildren()) {
-            res = add(item1, parentName, childName, actionDelegate);
-            if (res) {
-                break;
-            }
-        }
-        return res;
-    }
-*/
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
         Optional<ItemInfo> info = findItem(itemName);
@@ -49,7 +33,7 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-        return new Iterator<MenuItemInfo>() {
+        return new Iterator<>() {
             private final DFSIterator iter = new DFSIterator();
 
             @Override
@@ -59,9 +43,6 @@ public class SimpleMenu implements Menu {
 
             @Override
             public MenuItemInfo next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
                 ItemInfo next = iter.next();
                 return new MenuItemInfo(next.getMenuItem(), next.getNumber());
             }
