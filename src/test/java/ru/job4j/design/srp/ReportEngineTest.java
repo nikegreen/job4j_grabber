@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 
 public class ReportEngineTest {
-
     @Test
     public void whenOldGenerated() {
         MemStore store = new MemStore();
