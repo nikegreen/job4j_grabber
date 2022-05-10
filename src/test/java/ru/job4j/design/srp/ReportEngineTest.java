@@ -179,7 +179,6 @@ public class ReportEngineTest {
                 reportBuilder,
                 null
         );
-
         String expect = "["
         + "{\"name\":\"Ivan\","
         + "\"hired\":{\"year\":2021,\"month\":3,\"dayOfMonth\":1,"
