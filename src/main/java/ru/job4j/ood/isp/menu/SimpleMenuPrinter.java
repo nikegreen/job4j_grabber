@@ -1,22 +1,25 @@
 package ru.job4j.ood.isp.menu;
 
+import java.io.PrintStream;
 import java.util.Iterator;
 
 public class SimpleMenuPrinter implements  MenuPrinter {
     private static final String INDENT = "---";
+    private final PrintStream printStream;
+
+    public SimpleMenuPrinter(PrintStream printStream) {
+        this.printStream = printStream;
+    }
 
     @Override
     public void print(Menu menu) {
-        Iterator<Menu.MenuItemInfo> iter = menu.iterator();
-        while (iter.hasNext()) {
+        for (Menu.MenuItemInfo info : menu) {
             String prefix = "";
-            Menu.MenuItemInfo info = iter.next();
-            int index = info.getNumber().split("\\.").length - 1;
-            while (index--  > 0) {
-                System.out.print(INDENT);
+            for (int index = info.getNumber().split("\\.").length - 1; index > 0; index--) {
+                printStream.print(INDENT);
                 prefix = " ";
             }
-            System.out.println(prefix + info.getName() + " " + info.getNumber());
+            printStream.println(prefix + info.getName() + " " + info.getNumber());
         }
     }
 }

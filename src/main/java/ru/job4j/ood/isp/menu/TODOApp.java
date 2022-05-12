@@ -7,7 +7,7 @@ public class TODOApp {
     public static final ActionDelegate STUB_ACTION = System.out::println;
 
     public static void main(String[] args) {
-        MenuPrinter printer = new SimpleMenuPrinter();
+        MenuPrinter printer = new SimpleMenuPrinter(System.out);
         Menu  menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);

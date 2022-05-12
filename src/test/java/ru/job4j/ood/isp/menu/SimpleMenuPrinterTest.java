@@ -11,18 +11,11 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class SimpleMenuPrinterTest {
-
     public static final ActionDelegate STUB_ACTION = System.out::println;
-
-    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(output));
-    }
 
     @Test
     public void printerTest() {
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
         Menu menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
@@ -50,7 +43,7 @@ public class SimpleMenuPrinterTest {
                 ),
                 menu.select("Покормить собаку").orElse(null)
         );
-        MenuPrinter menuPrinter = new SimpleMenuPrinter();
+        MenuPrinter menuPrinter = new SimpleMenuPrinter(new PrintStream(output));
         menuPrinter.print(menu);
         assertEquals("Сходить в магазин 1.\n"
                 + "--- Купить продукты 1.1.\n"
@@ -58,10 +51,5 @@ public class SimpleMenuPrinterTest {
                 + "------ Купить молоко 1.1.2.\n"
                 + "Покормить собаку 2.\n",
                 output.toString());
-    }
-
-    @After
-    public void cleanUpStreams() {
-        System.setOut(null);
     }
 }
