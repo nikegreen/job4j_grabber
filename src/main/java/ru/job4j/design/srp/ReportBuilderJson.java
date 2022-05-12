@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 
 public class ReportBuilderJson implements ReportBuilder {
-
     @Override
     public String getHeader() {
         return "";
