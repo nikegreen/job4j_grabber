@@ -2,6 +2,9 @@ package ru.job4j.design.srp;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
@@ -143,15 +146,16 @@ public class ReportEngineTest {
                 reportBuilder,
                 null
         );
+        final ThreadLocal<DateFormat> DATE_FORMAT
+                = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss X"));
+        String date = DATE_FORMAT.get().format(now.getTime());
         String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
                 + System.lineSeparator()
                 + "<employees>" + System.lineSeparator()
-                + "    <employee name=\"Ivan\" hired=\"2021-04-01 00:00:00 +05\" "
-                + "fired=\"2021-04-01 00:00:00 +05\" "
-                + "salary=\"100.0\"/>" + System.lineSeparator()
-                + "    <employee name=\"Petr\" hired=\"2021-04-01 00:00:00 +05\" "
-                + "fired=\"2021-04-01 00:00:00 +05\" "
-                + "salary=\"110.0\"/>" + System.lineSeparator()
+                + "    <employee name=\"Ivan\" hired=\"" + date + "\" "
+                + "fired=\"" + date + "\" salary=\"100.0\"/>" + System.lineSeparator()
+                + "    <employee name=\"Petr\" hired=\"" + date + "\" "
+                + "fired=\"" + date + "\" salary=\"110.0\"/>" + System.lineSeparator()
                 + "</employees>" + System.lineSeparator();
         String out = engine.generate(em -> true);
         assertEquals(out, expect);
