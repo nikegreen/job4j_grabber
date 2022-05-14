@@ -2,7 +2,8 @@ package ru.job4j.design.srp;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
 import java.util.Objects;
@@ -10,9 +11,15 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "employee")
 public class Employee {
+    @XmlAttribute
     private String name;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(CalendarAdapterXml.class)
     private Calendar hired;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(CalendarAdapterXml.class)
     private Calendar fired;
+    @XmlAttribute
     private double salary;
 
     public Employee() {

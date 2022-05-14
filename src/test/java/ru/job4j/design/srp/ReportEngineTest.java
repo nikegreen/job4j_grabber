@@ -143,21 +143,13 @@ public class ReportEngineTest {
                 reportBuilder,
                 null
         );
-        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
-                + "<employees>\n"
-                + "    <employees>\n"
-                + "        <name>Ivan</name>\n"
-                + "        <hired>2021-04-01T00:00:00+05:00</hired>\n"
-                + "        <fired>2021-04-01T00:00:00+05:00</fired>\n"
-                + "        <salary>100.0</salary>\n"
-                + "    </employees>\n"
-                + "    <employees>\n"
-                + "        <name>Petr</name>\n"
-                + "        <hired>2021-04-01T00:00:00+05:00</hired>\n"
-                + "        <fired>2021-04-01T00:00:00+05:00</fired>\n"
-                + "        <salary>110.0</salary>\n"
-                + "    </employees>\n"
-                + "</employees>\n";
+        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + System.lineSeparator()
+                + "<employees>" + System.lineSeparator()
+                + "    <employee name=\"Ivan\" hired=\"2021-04-01 00:00:00 +05\" fired=\"2021-04-01 00:00:00 +05\" "
+                + "salary=\"100.0\"/>" + System.lineSeparator()
+                + "    <employee name=\"Petr\" hired=\"2021-04-01 00:00:00 +05\" fired=\"2021-04-01 00:00:00 +05\" "
+                + "salary=\"110.0\"/>" + System.lineSeparator()
+                + "</employees>" + System.lineSeparator();
         String out = engine.generate(em -> true);
         assertEquals(out, expect);
     }
