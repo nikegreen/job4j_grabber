@@ -45,11 +45,11 @@ public class SimpleMenuPrinterTest {
         );
         MenuPrinter menuPrinter = new SimpleMenuPrinter(new PrintStream(output));
         menuPrinter.print(menu);
-        assertEquals("Сходить в магазин 1.\n"
-                + "--- Купить продукты 1.1.\n"
-                + "------ Купить хлеб 1.1.1.\n"
-                + "------ Купить молоко 1.1.2.\n"
-                + "Покормить собаку 2.\n",
+        assertEquals("Сходить в магазин 1." + System.lineSeparator()
+                + "--- Купить продукты 1.1." + System.lineSeparator()
+                + "------ Купить хлеб 1.1.1." + System.lineSeparator()
+                + "------ Купить молоко 1.1.2." + System.lineSeparator()
+                + "Покормить собаку 2." + System.lineSeparator(),
                 output.toString());
     }
 }

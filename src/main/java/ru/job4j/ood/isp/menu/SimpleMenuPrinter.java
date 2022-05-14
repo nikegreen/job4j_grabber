@@ -14,11 +14,11 @@ public class SimpleMenuPrinter implements  MenuPrinter {
     @Override
     public void print(Menu menu) {
         for (Menu.MenuItemInfo info : menu) {
-            String prefix = "";
-            for (int index = info.getNumber().split("\\.").length - 1; index > 0; index--) {
+            int menuLevel = info.getNumber().split("\\.").length - 1;
+            for (int index = menuLevel; index > 0; index--) {
                 printStream.print(INDENT);
-                prefix = " ";
             }
+            String prefix = menuLevel > 0 ? " " : "";
             printStream.println(prefix + info.getName() + " " + info.getNumber());
         }
     }
