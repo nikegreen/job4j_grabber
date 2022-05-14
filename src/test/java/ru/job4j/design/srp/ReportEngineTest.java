@@ -143,11 +143,14 @@ public class ReportEngineTest {
                 reportBuilder,
                 null
         );
-        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + System.lineSeparator()
+        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+                + System.lineSeparator()
                 + "<employees>" + System.lineSeparator()
-                + "    <employee name=\"Ivan\" hired=\"2021-04-01 00:00:00 +05\" fired=\"2021-04-01 00:00:00 +05\" "
+                + "    <employee name=\"Ivan\" hired=\"2021-04-01 00:00:00 +05\" "
+                + "fired=\"2021-04-01 00:00:00 +05\" "
                 + "salary=\"100.0\"/>" + System.lineSeparator()
-                + "    <employee name=\"Petr\" hired=\"2021-04-01 00:00:00 +05\" fired=\"2021-04-01 00:00:00 +05\" "
+                + "    <employee name=\"Petr\" hired=\"2021-04-01 00:00:00 +05\" "
+                + "fired=\"2021-04-01 00:00:00 +05\" "
                 + "salary=\"110.0\"/>" + System.lineSeparator()
                 + "</employees>" + System.lineSeparator();
         String out = engine.generate(em -> true);
